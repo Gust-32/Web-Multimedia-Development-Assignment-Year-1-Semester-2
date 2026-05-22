@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback - AUGY'S Style Hub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { padding-top: 80px; }
+        .navbar {
+            background: linear-gradient(to right, #4B0082, #0056b3) !important;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .navbar-brand { color: white !important; font-weight: bold; font-size: 1.5rem; }
+        .nav-link { color: white !important; font-weight: 500; padding: 8px 15px !important; border-radius: 5px; }
+        .nav-link:hover, .nav-link.active { background-color: rgba(255,255,255,0.2); }
+        .form-control.me-2 { border-radius: 20px; background-color: rgba(255,255,255,0.1); color: white; border-color: rgba(255,255,255,0.5); }
+        .form-control.me-2::placeholder { color: rgba(255,255,255,0.7); }
+        .btn-outline-success { color: white; border-color: white; border-radius: 20px; }
+        .btn-outline-success:hover { background-color: white; color: #0056b3; }
+        
+        .rating-stars i {
+            cursor: pointer;
+            transition: color 0.2s;
+            margin-right: 5px;
+        }
+        .rating-stars i:hover,
+        .rating-stars i.active {
+            color: #ffc107;
+        }
+        .testimonial-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            height: 100%;
+        }
+        .footer-modal .modal-header {
+            background: linear-gradient(to right, #4B0082, #0056b3);
+            color: white;
+        }
+        .footer-modal .btn-close-white { filter: invert(1); }
+        .toast-message {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1100;
+            background: #28a745;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .toast-message.error { background: #dc3545; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="index.html"><span>AUGY'S STYLE HUB</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="shoes.html">Shoes</a></li>
+                <li class="nav-item"><a class="nav-link" href="clothing.html">Clothing</a></li>
+                <li class="nav-item"><a class="nav-link" href="cart.html">Add to Cart</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                <li class="nav-item"><a class="nav-link active" href="feedback.html">Feedback</a></li>
+            </ul>
+            <form class="d-flex ms-lg-3 mt-3 mt-lg-0" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search products...">
+                <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<section class="hero-section text-white text-center py-5" style="background: linear-gradient(rgba(75,0,130,0.8), rgba(0,86,179,0.8)), url('https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2940&auto=format&fit=crop') center/cover no-repeat; padding: 100px 0; margin-bottom: 50px;">
+    <div class="container">
+        <h1 class="display-3 fw-bold mb-4">Your Voice Matters!</h1>
+        <p class="lead mb-5">Help us improve by sharing your valuable feedback about your experience with AUGY'S Style Hub.</p>
+        <a href="#feedback-form-section" class="btn btn-light btn-lg px-4 py-2 fw-bold" style="color: #4B0082;">Share Your Thoughts</a>
+    </div>
+</section>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4 section-title">We Value Your Feedback</h2>
+    <p class="text-center text-muted mb-5">Your insights help us enhance our products, services, and overall shopping experience. Please take a moment to share your thoughts.</p>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card p-4 border-0 rounded shadow-lg mb-5" id="feedback-form-section">
+                <div class="card-body">
+                    <h5 class="card-title text-center mb-4">Tell Us About Your Experience</h5>
+                    <form id="feedbackForm">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name (Optional)</label>
+                            <input type="text" class="form-control" id="name" placeholder="Enter your name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address (Optional)</label>
+                            <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="feedbackType" class="form-label">Type of Feedback</label>
+                            <select class="form-select" id="feedbackType" required>
+                                <option selected disabled value="">Choose...</option>
+                                <option value="product">Product Feedback</option>
+                                <option value="website">Website Experience</option>
+                                <option value="customer_service">Customer Service</option>
+                                <option value="suggestion">Suggestion</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label d-block">Overall Rating</label>
+                            <div class="rating-stars">
+                                <i class="far fa-star fa-2x" data-rating="1"></i>
+                                <i class="far fa-star fa-2x" data-rating="2"></i>
+                                <i class="far fa-star fa-2x" data-rating="3"></i>
+                                <i class="far fa-star fa-2x" data-rating="4"></i>
+                                <i class="far fa-star fa-2x" data-rating="5"></i>
+                            </div>
+                            <input type="hidden" id="selectedRating" name="rating" value="0">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Your Feedback / Comments</label>
+                            <textarea class="form-control" id="message" rows="5" placeholder="Share your detailed feedback here..." required></textarea>
+                        </div>
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" type="checkbox" id="anonymousCheck">
+                            <label class="form-check-label" for="anonymousCheck">Submit Anonymously</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 py-2">Submit Feedback</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="testimonials-section py-5 my-5">
+        <h2 class="text-center mb-4 section-title">What Our Customers Say</h2>
+        <p class="text-center text-muted mb-5">Hear from other satisfied customers who love AUGY'S Style Hub.</p>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"I absolutely love the quality of shoes from AUGY'S Style Hub! They are comfortable and stylish. Excellent customer service too!"</p>
+                    <p class="text-end fw-bold">- Jane D.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Finding trendy clothing that fits well has always been a challenge, but AUGY'S Style Hub exceeded my expectations. Highly recommend!"</p>
+                    <p class="text-end fw-bold">- Thabo M.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"The website is easy to navigate, and the delivery was quick. My new jacket is perfect. Keep up the great work!"</p>
+                    <p class="text-end fw-bold">- Emily R.</p>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <a href="#" class="btn btn-outline-secondary" id="readMoreReviews">Read More Reviews</a>
+        </div>
+    </section>
+</div>
+
+<!-- Floating Toast Message -->
+<div id="floatingToast" class="toast-message">
+    <i class="fas fa-check-circle me-2"></i> <span id="toastText"></span>
+</div>
+
+<footer class="text-center text-lg-start mt-5">
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                <h5>AUGY'S STYLE HUB</h5>
+                <p class="footer-about">Your premier destination for trendy, affordable fashion. We specialize in high-quality footwear and apparel that combines style with comfort. Our carefully curated collections cater to all ages and occasions, helping you express your unique personality through fashion.</p>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://wa.me/26776998031" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <h5>QUICK LINKS</h5>
+                <ul class="list-unstyled">
+                    <li><a href="index.html"><i class="fas fa-chevron-right me-2"></i> Home</a></li>
+                    <li><a href="shoes.html"><i class="fas fa-chevron-right me-2"></i> Shoes Collection</a></li>
+                    <li><a href="clothing.html"><i class="fas fa-chevron-right me-2"></i> Clothing Line</a></li>
+                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#newArrivalsModal"><i class="fas fa-chevron-right me-2"></i> New Arrivals</a></li>
+                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#specialOffersModal"><i class="fas fa-chevron-right me-2"></i> Special Offers</a></li>
+                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal"><i class="fas fa-chevron-right me-2"></i> Privacy Policy</a></li>
+                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#termsModal"><i class="fas fa-chevron-right me-2"></i> Terms & Conditions</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <h5>CONTACT US</h5>
+                <ul class="list-unstyled contact-info">
+                    <li><i class="fas fa-map-marker-alt me-2"></i> Main Mall, Gaborone, Botswana</li>
+                    <li><i class="fas fa-phone me-2"></i> +267 75 513 735</li>
+                    <li><i class="fas fa-envelope me-2"></i> AUGY'S@stylehub.com</li>
+                    <li><i class="fas fa-clock me-2"></i> Mon-Sat: 9AM - 7PM</li>
+                    <li><i class="fas fa-store me-2"></i> Sunday: 10AM - 4PM</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            &copy; 2023 AUGY'S Style Hub. All Rights Reserved. 
+            <span class="d-block d-sm-inline">|</span> 
+            <a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal">Privacy Policy</a> | 
+            <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms & Conditions</a>
+        </div>
+    </div>
+</footer>
+
+<!-- Footer Modals -->
+<div class="modal fade footer-modal" id="privacyModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title">Privacy Policy</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body"><p>At AUGY'S Style Hub, we value your privacy. We collect information to process orders and improve your experience. We never share your personal data with third parties without your consent. For full details, please contact us.</p></div>
+            <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade footer-modal" id="termsModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title">Terms & Conditions</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body"><p>By using our website, you agree to our terms. All purchases are subject to our return policy. We reserve the right to update terms at any time. Please read carefully before ordering.</p></div>
+            <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade footer-modal" id="newArrivalsModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title">New Arrivals</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body">
+                <p>We're constantly updating our collection with fresh styles. New arrivals are coming soon!</p>
+                <p>Leave your email below and we'll notify you as soon as they drop.</p>
+                <form id="newArrivalsForm">
+                    <div class="mb-3"><input type="email" class="form-control" id="newArrivalsEmail" placeholder="Your email address" required></div>
+                    <button type="submit" class="btn btn-primary w-100">Notify Me</button>
+                    <div id="newArrivalsMessage" class="mt-2 small text-success"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade footer-modal" id="specialOffersModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title">Special Offers</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body">
+                <p>Exclusive deals and discounts are on the way!</p>
+                <p>Subscribe to get special offers directly in your inbox.</p>
+                <form id="specialOffersForm">
+                    <div class="mb-3"><input type="email" class="form-control" id="specialOffersEmail" placeholder="Your email address" required></div>
+                    <button type="submit" class="btn btn-primary w-100">Subscribe</button>
+                    <div id="specialOffersMessage" class="mt-2 small text-success"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Rating stars logic
+        const stars = document.querySelectorAll('.rating-stars i');
+        const selectedRatingInput = document.getElementById('selectedRating');
+        
+        function setRating(rating) {
+            selectedRatingInput.value = rating;
+            stars.forEach((star, idx) => {
+                if (idx < rating) {
+                    star.classList.remove('far');
+                    star.classList.add('fas');
+                    star.style.color = '#ffc107';
+                } else {
+                    star.classList.remove('fas');
+                    star.classList.add('far');
+                    star.style.color = '';
+                }
+            });
+        }
+        
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = parseInt(this.dataset.rating);
+                setRating(rating);
+            });
+            star.addEventListener('mouseover', function() {
+                const hoverRating = parseInt(this.dataset.rating);
+                stars.forEach((s, idx) => {
+                    if (idx < hoverRating) {
+                        s.classList.remove('far');
+                        s.classList.add('fas');
+                        s.style.color = '#ffc107';
+                    } else {
+                        s.classList.remove('fas');
+                        s.classList.add('far');
+                        s.style.color = '';
+                    }
+                });
+            });
+            star.addEventListener('mouseout', function() {
+                const currentRating = parseInt(selectedRatingInput.value);
+                setRating(currentRating);
+            });
+        });
+        
+        // Toast helper
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('floatingToast');
+            const toastText = document.getElementById('toastText');
+            toastText.innerText = message;
+            toast.classList.remove('error');
+            if (isError) toast.classList.add('error');
+            toast.style.display = 'flex';
+            setTimeout(() => { toast.style.display = 'none'; }, 3000);
+        }
+        
+        // Feedback form submission
+        const feedbackForm = document.getElementById('feedbackForm');
+        feedbackForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const feedbackType = document.getElementById('feedbackType').value;
+            const rating = parseInt(selectedRatingInput.value);
+            const message = document.getElementById('message').value.trim();
+            const isAnonymous = document.getElementById('anonymousCheck').checked;
+            
+            if (!feedbackType) {
+                showToast("Please select a feedback type.", true);
+                return;
+            }
+            if (rating === 0) {
+                showToast("Please select a rating.", true);
+                return;
+            }
+            if (!message) {
+                showToast("Please enter your feedback comments.", true);
+                return;
+            }
+            
+            // Here you could send data to a server, but for demo just show success
+            showToast("Thank you for your feedback! We appreciate your input.", false);
+            
+            // Reset form
+            feedbackForm.reset();
+            setRating(0);
+            document.getElementById('selectedRating').value = 0;
+            // Reset rating stars visually
+            stars.forEach(s => {
+                s.classList.remove('fas');
+                s.classList.add('far');
+                s.style.color = '';
+            });
+        });
+        
+        // "Read More Reviews" demo alert
+        const readMoreBtn = document.getElementById('readMoreReviews');
+        if (readMoreBtn) {
+            readMoreBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                showToast("More reviews coming soon! Check back later.", false);
+            });
+        }
+        
+        // Footer subscription forms
+        const newArrivalsForm = document.getElementById('newArrivalsForm');
+        if (newArrivalsForm) {
+            newArrivalsForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('newArrivalsEmail').value;
+                if (email) {
+                    document.getElementById('newArrivalsMessage').innerHTML = 'Thanks! We\'ll notify you about new arrivals.';
+                    newArrivalsForm.reset();
+                    setTimeout(() => { document.getElementById('newArrivalsMessage').innerHTML = ''; }, 3000);
+                }
+            });
+        }
+        
+        const specialOffersForm = document.getElementById('specialOffersForm');
+        if (specialOffersForm) {
+            specialOffersForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('specialOffersEmail').value;
+                if (email) {
+                    document.getElementById('specialOffersMessage').innerHTML = 'You\'re subscribed to special offers!';
+                    specialOffersForm.reset();
+                    setTimeout(() => { document.getElementById('specialOffersMessage').innerHTML = ''; }, 3000);
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>
